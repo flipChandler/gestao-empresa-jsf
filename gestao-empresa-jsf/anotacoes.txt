@@ -1,0 +1,54 @@
+ baixar o tomcat - https://tomcat.apache.org/download-90.cgi
+- alterar para java ee e clicar na aba server.
+- pasta apache/tomcat 9 e next e fim
+- duplo clique na pasta tomcat > open launch configuration > arguments> na caixa vm arguments colar <-Xms256m-Xmx512m> no final e ok
+- mudar de use workspace metadata para Use Tomcat installation
+- desmarcar Modules auto reload by default e ctrl + s para salvar as alterações
+- a direita clicar em iniciar o servidor tomcat
+- localhost:8080 aparce a tela do tomcat
+- clicar com o direito new > other > maven > maven project > marcar em create a simple project > next >
+br.com.felipesantos , artifactId, packaging: war, description
+
+aparece um erro e clicar com direito em Deployment Descriptor > Generate Deployment Descriptor > cria o WEB-INF e web.xml
+
+
+- no pom.xml
+
+- caso queira utilizar Java 11
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>br.com.felipesantos</groupId>
+  <artifactId>jsf-primefaces-essencial-algaworks</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>jsf-primefaces-essencial-algaworks</name>
+  <description>JSF e Primefaces - Algaworks</description>
+  
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-compiler-plugin</artifactId>
+  			<version>3.5.1</version>
+  			<configuration>
+  				<source>11</source>
+  				<target>11</target>
+  			</configuration>
+  		</plugin>
+  	</plugins>
+  </build>
+</project>
+
+
+e depois clicar no projeto> maven> update project e marcar em Force Update of Snapshots e ok
+
+http://localhost:8080/gestao-empresa-jsf/index.xhtml --> url
+
+
+
+
