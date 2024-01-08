@@ -1,13 +1,15 @@
 package br.com.felipesantos.erp.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.felipesantos.erp.enums.TipoEmpresa;
 import br.com.felipesantos.erp.model.Empresa;
+import br.com.felipesantos.erp.repository.EmpresaRepository;
 
 @Named
 @ViewScoped
@@ -15,26 +17,23 @@ public class GestaoEmpresasBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@ManagedProperty(value = "#{empresa}")
-	private Empresa empresa = new Empresa();
+	@Inject
+	private EmpresaRepository empresaRepository;
+		
+	private List<Empresa> empresas = new ArrayList<>();
 	
-	public Empresa getEmpresa() {
-		return empresa;
-	}	
-	
-	public TipoEmpresa[] getTiposEmpresa() {
-		return TipoEmpresa.values();
+	public void buscarTodas() {
+		this.empresas = empresaRepository.findAll();
 	}
 	
-	public void salvar() {
-		System.out.println(
-				"Razao Social: " +  empresa.getRazaoSocial()
-				+ "\nNome Fantasia: " + empresa.getNomeFantasia()
-				+ "\nTipo: " + empresa.getTipoEmpresa());
+	public List<Empresa> getEmpresas() {
+		return empresas;
 	}
 	
-	public String ajudaGestaoEmpresas() {
-		// exibe a url ajuda-gestao-empresas.xhtml | se omitir, mesmo navegando pra ajuda, não altera a url, permanecendo index.xhtml
-		return "ajuda-gestao-empresas?faces-redirect=true"; 
-	}
+	// opções pra buscar todas as empresas quando iniciar a aplicação
+	//  <f:event listener="#{gestaoEmpresasBean.buscarTodas}" type="preRenderView" /> -- dentro de <h:body>
+	// ou
+	//  <f:metadata>
+	//         <f:viewAction action="#{gestaoEmpresasBean.buscarTodas}" /> -- dentro do <h:head>
+	//  </f:metadata>
 }

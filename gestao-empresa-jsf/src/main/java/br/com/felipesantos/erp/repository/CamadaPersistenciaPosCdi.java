@@ -3,29 +3,26 @@ package br.com.felipesantos.erp.repository;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.inject.Inject;
 
 import br.com.felipesantos.erp.enums.TipoEmpresa;
 import br.com.felipesantos.erp.model.Empresa;
 import br.com.felipesantos.erp.model.RamoAtividade;
 
-public class CamadaPersistencia {
+public class CamadaPersistenciaPosCdi {
+	
+	@Inject
+	private static RamoAtividadeRepository ramoAtividadeRepository;
+	
+	@Inject
+	private static EmpresaRepository empresaRepository;
+	
 	public static void main(String[] args) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("AlgaWorksPU");
 		
-		EntityManager em = emf.createEntityManager();
 		
-		em.getTransaction().begin();
-		
-		RamoAtividadeRepository ramoAtividadeRepository = new RamoAtividadeRepository(em);
-		EmpresaRepository empresaRepository = new EmpresaRepository();
-		
-//		RamoAtividade ramoAtividade = new RamoAtividade();
-//		ramoAtividade.setDescricao("INFORMÁTICA");
-//		ramoAtividadeRepository.save(ramoAtividade);
-//		em.getTransaction().commit();
+		RamoAtividade ramoAtividade = new RamoAtividade();
+		ramoAtividade.setDescricao("INFORMÁTICA");
+		ramoAtividadeRepository.save(ramoAtividade);
 		
 		List<RamoAtividade> listaRamoAtividades = ramoAtividadeRepository.buscarPorDescricao("");
 		List<Empresa> listaEmpresas = empresaRepository.buscarPorNomeFantasia("");
@@ -39,15 +36,10 @@ public class CamadaPersistencia {
 		empresa.setDataFundacao(LocalDate.now());
 		empresa.setRamoAtividade(listaRamoAtividades.get(0));
 		
-		empresaRepository.save(empresa);
-		
-		em.getTransaction().commit();
+		empresaRepository.save(empresa);		
 		
 		// CHECK SE A INSERÇÃO FUNCIONOU
 		List<Empresa> listaEmpresas2 = empresaRepository.buscarPorNomeFantasia("");
 		System.out.println(listaEmpresas2);
-		
-		em.close();
-		emf.close();
 	}
 }
