@@ -8,6 +8,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.felipesantos.erp.enums.TipoEmpresa;
 import br.com.felipesantos.erp.model.Empresa;
 import br.com.felipesantos.erp.repository.EmpresaRepository;
 import br.com.felipesantos.erp.util.FacesMessages;
@@ -49,7 +50,11 @@ public class GestaoEmpresasBean implements Serializable {
 
 	public void setTermoPesquisa(String termoPesquisa) {
 		this.termoPesquisa = termoPesquisa;
-	}	
+	}
+	
+	public TipoEmpresa[] getTiposEmpresa() {
+		return TipoEmpresa.values();
+	}
 	// opções pra buscar todas as empresas quando iniciar a aplicação
 	//  <f:event listener="#{gestaoEmpresasBean.buscarTodas}" type="preRenderView" /> -- dentro de <h:body>
 	// ou
