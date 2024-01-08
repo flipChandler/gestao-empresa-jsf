@@ -25,28 +25,30 @@
 
 	<div id="conteudo">		
 		
-		<p:dataTable value="#{gestaoEmpresasBean.empresas}" 
-					 var="empresa"
-					 emptyMessage="Nenhuma informação a ser exibida"
-					 paginator="true"
-					 rows="2"
-					 paginatorPosition="bottom">
-			<p:column headerText="Razão Social">
-				<h:outputText value="#{empresa.razaoSocial}" />
-			</p:column>
-			
-			<p:column headerText="Nome Fantasia">
-				<h:outputText value="#{empresa.nomeFantasia}" />
-			</p:column>
-			
-			<p:column headerText="Tipo Empresa">
-				<h:outputText value="#{empresa.tipoEmpresa}" />
-			</p:column>
-			
-			<p:column headerText="Ramo Atividade">
-				<h:outputText value="#{empresa.ramoAtividade.descricao}" />
-			</p:column>
-		</p:dataTable>
+		<h:form>
+			<p:dataTable value="#{gestaoEmpresasBean.empresas}" 
+						 var="empresa"
+						 emptyMessage="Nenhuma informação a ser exibida"
+						 paginator="true"
+						 rows="2"
+						 paginatorPosition="bottom">
+				<p:column headerText="Razão Social" sortBy="#{empresa.razaoSocial}">
+					<h:outputText value="#{empresa.razaoSocial}" />
+				</p:column>
+				
+				<p:column headerText="Nome Fantasia">
+					<h:outputText value="#{empresa.nomeFantasia}" />
+				</p:column>
+				
+				<p:column headerText="Tipo Empresa">
+					<h:outputText value="#{empresa.tipoEmpresa}" />
+				</p:column>
+				
+				<p:column headerText="Ramo Atividade">
+					<h:outputText value="#{empresa.ramoAtividade.descricao}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
 		
 	</div>
 
