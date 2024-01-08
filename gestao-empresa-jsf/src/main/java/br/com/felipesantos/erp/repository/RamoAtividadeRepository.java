@@ -1,5 +1,6 @@
 package br.com.felipesantos.erp.repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,7 +12,9 @@ import javax.persistence.criteria.Root;
 
 import br.com.felipesantos.erp.model.RamoAtividade;
 
-public class RamoAtividadeRepository {
+public class RamoAtividadeRepository implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Inject
 	private EntityManager entityManager;		
