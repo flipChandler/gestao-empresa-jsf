@@ -27,7 +27,10 @@
 		
 		<p:dataTable value="#{gestaoEmpresasBean.empresas}" 
 					 var="empresa"
-					 emptyMessage="Nenhuma informação a ser exibida">
+					 emptyMessage="Nenhuma informação a ser exibida"
+					 paginator="true"
+					 rows="2"
+					 paginatorPosition="bottom">
 			<p:column headerText="Razão Social">
 				<h:outputText value="#{empresa.razaoSocial}" />
 			</p:column>
