@@ -110,6 +110,14 @@ public class GestaoEmpresasBean implements Serializable {
 	public Empresa getEmpresa() {
 		return empresa;
 	}
+	
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+	
+	public boolean isEmpresaSelecionada() {
+		return empresa != null && empresa.getId() != null;
+	}
 	// opções pra buscar todas as empresas quando iniciar a aplicação
 	//  <f:event listener="#{gestaoEmpresasBean.buscarTodas}" type="preRenderView" /> -- dentro de <h:body>
 	// ou
