@@ -57,17 +57,20 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	public void salvar() {
 		cadastroEmpresaService.salvar(empresa);
-		if (jaHouvePesquisa()) {
-			pesquisar();
-		} else {
-			buscarTodas();
-		}
+		atualizarRegistros();
 		facesMessages.info("Empresa salva com sucesso!");
 		// vai atualizar a dataTable e o messages quando salvar() for invocado
 		RequestContext.getCurrentInstance().update(
 				Arrays.asList(
 						"frm:empresasDataTable", 
 						"frm:messages"));
+	}
+	
+	public void excluir() {
+		cadastroEmpresaService.excluir(empresa);
+		empresa = null;
+		atualizarRegistros();
+		facesMessages.info("Empresa excluída com sucesso!");
 	}
 	
 	public void buscarTodas() {
@@ -86,6 +89,14 @@ public class GestaoEmpresasBean implements Serializable {
 		ramoAtividadeConverter = new RamoAtividadeConverter(ramoAtividades);
 		return ramoAtividades;
 	}
+	
+	private void atualizarRegistros() {
+		if (jaHouvePesquisa()) {
+			pesquisar();
+		} else {
+			buscarTodas();
+		}
+	}	
 	
 	private boolean jaHouvePesquisa() {
 		return termoPesquisa != null && !termoPesquisa.equals("");
