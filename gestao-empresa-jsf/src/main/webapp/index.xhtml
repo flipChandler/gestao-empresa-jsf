@@ -41,7 +41,9 @@
 									 actionListener="#{gestaoEmpresasBean.prepararNovaEmpresa}"
 									 oncomplete="PF('empresaDialogWidgetVar').show()"
 									 update="empresaDialog"
-									 process="@this" />
+									 process="@this">
+						<p:resetInput target="empresaDialog" />
+					</p:commandButton>
 									 
 					<!-- quando clicar em Nova, somente o dialog seja processado e não os demais componentes da tela (ex.: outros botoes, inputText, etc -->									 	
 					
@@ -94,6 +96,8 @@
 					  resizable="false"
 					  closeOnEscape="true">
 				<p:messages id="empresaMessages"/>
+				
+				<p:defaultCommand target="salvarCommandButton" scope="empresaDialog" />
 					  
 				<h:panelGrid id="empresaPanelGrid" 
 							 columns="2"
@@ -145,7 +149,8 @@
 								    itemValue="#{ramoAtividade}" />
 					
 					<p:outputLabel />
-					<p:commandButton value="Salvar" 
+					<p:commandButton id="salvarCommandButton"
+									 value="Salvar" 
 									 actionListener="#{gestaoEmpresasBean.salvar}"
 									 update="empresaPanelGrid empresaMessages"
 									 oncomplete="if (!args.validationFailed) PF('empresaDialogWidgetVar').hide()"
