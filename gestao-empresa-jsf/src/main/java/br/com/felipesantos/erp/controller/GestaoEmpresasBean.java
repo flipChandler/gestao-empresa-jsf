@@ -2,12 +2,15 @@ package br.com.felipesantos.erp.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.context.RequestContext;
 
 import br.com.felipesantos.erp.controller.conversor.RamoAtividadeConverter;
 import br.com.felipesantos.erp.enums.TipoEmpresa;
@@ -52,8 +55,15 @@ public class GestaoEmpresasBean implements Serializable {
 		cadastroEmpresaService.salvar(empresa);
 		if (jaHouvePesquisa()) {
 			pesquisar();
+		} else {
+			buscarTodas();
 		}
-		facesMessages.info("Empresa cadastrada com sucesso!");
+		facesMessages.info("Empresa salva com sucesso!");
+		// vai atualizar a dataTable e o messages quando salvar() for invocado
+		RequestContext.getCurrentInstance().update(
+				Arrays.asList(
+						"frm:empresasDataTable", 
+						"frm:messages"));
 	}
 	
 	public void buscarTodas() {

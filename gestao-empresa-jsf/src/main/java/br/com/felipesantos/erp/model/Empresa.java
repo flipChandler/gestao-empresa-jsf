@@ -15,6 +15,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 import br.com.felipesantos.erp.enums.TipoEmpresa;
 
@@ -30,22 +38,33 @@ public class Empresa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank
+	@Size(min = 1)
 	@Column(name = "nome_fantasia", nullable = false, length = 80)
 	private String nomeFantasia;
 	
+	@NotBlank
+	@Size(min = 1)
 	@Column(name = "razao_social", nullable = false, length = 120)
 	private String razaoSocial;
 	
+	@CNPJ
+	@NotBlank
 	@Column(name = "cnpj", nullable = false, length = 18)
 	private String cnpj;
 	
+	@NotNull
+	@Past
+	@Temporal(TemporalType.DATE)
 	@Column(name = "data_fundacao")
 	private Date dataFundacao;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_empresa", nullable = false, length = 30)
 	private TipoEmpresa tipoEmpresa;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "ramo_atividade_id", nullable = false)
 	private RamoAtividade ramoAtividade;

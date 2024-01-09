@@ -14,8 +14,8 @@
 			<f:viewAction action="#{gestaoEmpresasBean.buscarTodas}" />
 		</f:metadata>		
 			
-		<h:form>
-			<p:messages autoUpdate="true" />
+		<h:form id="frm">
+			<p:messages id="messages" />
 			
 			<p:toolbar>
 				<f:facet name="left">
@@ -27,7 +27,7 @@
 					<p:commandButton value="Pesquisar" 
 									 icon="fa fa-search"
 									 actionListener="#{gestaoEmpresasBean.pesquisar}"
-									 update="empresasDataTable"
+									 update="empresasDataTable messages"
 									 process="@this termoPesquisa" />
 									 
 					<!-- quando clicar em Pesquisar, somente o termoPesquisa e botão serão processados -->	
@@ -93,6 +93,8 @@
 					  modal="true"
 					  resizable="false"
 					  closeOnEscape="true">
+				<p:messages id="empresaMessages"/>
+					  
 				<h:panelGrid id="empresaPanelGrid" 
 							 columns="2"
 							 rendered="#{gestaoEmpresasBean.empresa ne null}">
@@ -100,13 +102,14 @@
 					<p:inputText id="razaoSocial"
 								 value="#{gestaoEmpresasBean.empresa.razaoSocial}"	
 								 size="80"
-								 maxlength="120" />
+								 maxlength="120"
+								 label="Razão Social" />
 								 
 					<p:outputLabel value="Nome Fantasia: " for="nomeFantasia" />
 					<p:inputText id="nomeFantasia"
 								 value="#{gestaoEmpresasBean.empresa.nomeFantasia}"
 								 size="80"
-								 maxlength="120" />
+								 maxlength="80" />
 								 
 					<p:outputLabel value="Tipo Empresa: " for="tipoEmpresa" />	
 					<p:selectOneMenu id="tipoEmpresa"
@@ -144,9 +147,10 @@
 					<p:outputLabel />
 					<p:commandButton value="Salvar" 
 									 actionListener="#{gestaoEmpresasBean.salvar}"
-									 update="empresasDataTable empresaPanelGrid"
-									 oncomplete="PF('empresaDialogWidgetVar').hide()"
+									 update="empresaPanelGrid empresaMessages"
+									 oncomplete="if (!args.validationFailed) PF('empresaDialogWidgetVar').hide()"
 									 process="empresaDialog" />
+				<!-- se as validações dos campos não falharem, pode fechar a dialog -->
 				<!-- quando clicar em Salvar, somente o dialog seja processado e não os demais componentes da tela (ex.: outros botoes, inputText, etc -->										 
 				</h:panelGrid>
 			</p:dialog>

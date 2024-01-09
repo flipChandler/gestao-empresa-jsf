@@ -9,6 +9,9 @@
 		<locale-config>
 			<default-locale>pt_BR</default-locale>
 		</locale-config>
+		
+		<message-bundle>erp.Messages</message-bundle>
+		<message-bundle>ValidationMessages_pt_BR</message-bundle>
 	</application>
 	
 </faces-config>
