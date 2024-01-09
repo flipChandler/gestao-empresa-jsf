@@ -39,7 +39,7 @@ public class GestaoEmpresasBean implements Serializable {
 	@Inject
 	private CadastroEmpresaService cadastroEmpresaService;
 	
-	private Converter RamoAtividadeConverter;
+	private Converter ramoAtividadeConverter;
 	
 	private List<Empresa> empresas = new ArrayList<>();
 	
@@ -49,6 +49,10 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	public void prepararNovaEmpresa() {
 		empresa = new Empresa();
+	}
+	
+	public void prepararEdicao() {
+		ramoAtividadeConverter = new RamoAtividadeConverter(Arrays.asList(empresa.getRamoAtividade()));
 	}
 	
 	public void salvar() {
@@ -79,7 +83,7 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	public List<RamoAtividade> completarRamoAtividade(String descricao) {
 		List<RamoAtividade> ramoAtividades = ramoAtividadeRepository.buscarPorDescricao(descricao);
-		RamoAtividadeConverter = new RamoAtividadeConverter(ramoAtividades);
+		ramoAtividadeConverter = new RamoAtividadeConverter(ramoAtividades);
 		return ramoAtividades;
 	}
 	
@@ -104,7 +108,7 @@ public class GestaoEmpresasBean implements Serializable {
 	}
 	
 	public Converter getRamoAtividadeConverter() {
-		return RamoAtividadeConverter;
+		return ramoAtividadeConverter;
 	}
 	
 	public Empresa getEmpresa() {
