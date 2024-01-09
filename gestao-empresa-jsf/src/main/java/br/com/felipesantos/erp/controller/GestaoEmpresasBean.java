@@ -15,6 +15,7 @@ import br.com.felipesantos.erp.model.Empresa;
 import br.com.felipesantos.erp.model.RamoAtividade;
 import br.com.felipesantos.erp.repository.EmpresaRepository;
 import br.com.felipesantos.erp.repository.RamoAtividadeRepository;
+import br.com.felipesantos.erp.service.CadastroEmpresaService;
 import br.com.felipesantos.erp.util.FacesMessages;
 
 @Named
@@ -28,14 +29,32 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	@Inject
 	private RamoAtividadeRepository ramoAtividadeRepository;
+	
 	@Inject
 	private FacesMessages facesMessages;
+	
+	@Inject
+	private CadastroEmpresaService cadastroEmpresaService;
 	
 	private Converter RamoAtividadeConverter;
 	
 	private List<Empresa> empresas = new ArrayList<>();
 	
 	private String termoPesquisa;
+	
+	private Empresa empresa;
+	
+	public void prepararNovaEmpresa() {
+		empresa = new Empresa();
+	}
+	
+	public void salvar() {
+		cadastroEmpresaService.salvar(empresa);
+		if (jaHouvePesquisa()) {
+			pesquisar();
+		}
+		facesMessages.info("Empresa cadastrada com sucesso!");
+	}
 	
 	public void buscarTodas() {
 		this.empresas = empresaRepository.findAll();
@@ -52,6 +71,10 @@ public class GestaoEmpresasBean implements Serializable {
 		List<RamoAtividade> ramoAtividades = ramoAtividadeRepository.buscarPorDescricao(descricao);
 		RamoAtividadeConverter = new RamoAtividadeConverter(ramoAtividades);
 		return ramoAtividades;
+	}
+	
+	private boolean jaHouvePesquisa() {
+		return termoPesquisa != null && !termoPesquisa.equals("");
 	}
 	
 	public List<Empresa> getEmpresas() {
@@ -72,6 +95,10 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	public Converter getRamoAtividadeConverter() {
 		return RamoAtividadeConverter;
+	}
+	
+	public Empresa getEmpresa() {
+		return empresa;
 	}
 	// opções pra buscar todas as empresas quando iniciar a aplicação
 	//  <f:event listener="#{gestaoEmpresasBean.buscarTodas}" type="preRenderView" /> -- dentro de <h:body>

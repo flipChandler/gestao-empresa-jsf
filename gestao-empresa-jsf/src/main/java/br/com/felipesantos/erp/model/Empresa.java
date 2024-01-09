@@ -2,7 +2,7 @@ package br.com.felipesantos.erp.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.felipesantos.erp.enums.TipoEmpresa;
+
+
 
 @Entity
 @Table(name = "empresa")
@@ -38,7 +40,7 @@ public class Empresa implements Serializable {
 	private String cnpj;
 	
 	@Column(name = "data_fundacao")
-	private LocalDate dataFundacao;
+	private Date dataFundacao;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_empresa", nullable = false, length = 30)
@@ -83,11 +85,11 @@ public class Empresa implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public LocalDate getDataFundacao() {
+	public Date getDataFundacao() {
 		return dataFundacao;
 	}
 
-	public void setDataFundacao(LocalDate dataFundacao) {
+	public void setDataFundacao(Date dataFundacao) {
 		this.dataFundacao = dataFundacao;
 	}	
 
